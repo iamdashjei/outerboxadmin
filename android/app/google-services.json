@@ -1,0 +1,185 @@
+{
+  "project_info": {
+    "project_number": "760271824421",
+    "firebase_url": "https://outerboxpos.firebaseio.com",
+    "project_id": "outerboxpos",
+    "storage_bucket": "outerboxpos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760271824421:android:2908b8700f91bd31d541cc",
+        "android_client_info": {
+          "package_name": "com.cloud.outerboxadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDCa3vSE5kt-MimEAaEVIFLoW8qccV1fQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760271824421:android:b6c13344a60d91bed541cc",
+        "android_client_info": {
+          "package_name": "com.cloud.outerboxkitchen.outerboxkitchen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDCa3vSE5kt-MimEAaEVIFLoW8qccV1fQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760271824421:android:d709e8108bf544f6d541cc",
+        "android_client_info": {
+          "package_name": "com.cloud.outerboxpos.outerboxpos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDCa3vSE5kt-MimEAaEVIFLoW8qccV1fQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760271824421:android:9580b8d84b07312ed541cc",
+        "android_client_info": {
+          "package_name": "com.outerbox.outerbox_pos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDCa3vSE5kt-MimEAaEVIFLoW8qccV1fQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760271824421:android:989345705fe4fcd1d541cc",
+        "android_client_info": {
+          "package_name": "com.saa.outerbox_business_solution"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDCa3vSE5kt-MimEAaEVIFLoW8qccV1fQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760271824421:android:0be8551e914501c0d541cc",
+        "android_client_info": {
+          "package_name": "com.ssa.kitchen_monitoring"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDCa3vSE5kt-MimEAaEVIFLoW8qccV1fQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760271824421-u1cm30vr948l21th4p12a2en55n7h32n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

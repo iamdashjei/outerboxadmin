@@ -14,8 +14,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DatabaseHelper().initDatabase();
   await Firebase.initializeApp();
-  await FlutterStatusbarcolor.setStatusBarColor(HexColor("#0B1043"));
-  FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
+  //await FlutterStatusbarcolor.setStatusBarColor(HexColor("#0B1043"));
+  //FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
   //     statusBarColor: Colors.orange
   // ));
@@ -29,15 +29,6 @@ class MyApp extends StatelessWidget {
     final themes = ThemeData(
       primarySwatch: Colors.blue,
     );
-    // return MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   title: 'Outerbox Admin',
-    //   theme: ThemeData(
-    //     primarySwatch: Colors.blue,
-    //     visualDensity: VisualDensity.adaptivePlatformDensity,
-    //   ),
-    //   home: AppAuthentication(),
-    // );
     return  StreamChat(
       streamChatThemeData: StreamChatThemeData.fromTheme(themes).copyWith(
         ownMessageTheme: MessageTheme(

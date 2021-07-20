@@ -197,8 +197,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       //createChannelWithUsers(info.uid, info.accountType, info.commissaryId, info.clusterId, info.headOfficeId, info.cashierName);
      });
     uid = await UserSessions.getAdminUID();
-    await FlutterStatusbarcolor.setStatusBarColor(HexColor("#0B1043"));
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
+    //await FlutterStatusbarcolor.setStatusBarColor(HexColor("#0B1043"));
+    //FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
   }
 
   void initPlatformSpecifics() async{

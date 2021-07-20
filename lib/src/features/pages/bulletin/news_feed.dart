@@ -73,7 +73,7 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   void initState() {
     super.initState();
-
+    print("UID => " + widget.uid);
     postReference = databaseReference.child("post");
     profileReference = FirebaseDatabase.instance.reference().child("users").child(widget.uid);
     _todoQuery = databaseReference.reference().child("users").child(widget.uid);

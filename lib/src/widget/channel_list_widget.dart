@@ -60,7 +60,7 @@ class ChannelListWidget extends StatelessWidget {
 
   Future<AudioPlayer> playLocalAsset() async {
     AudioCache cache = new AudioCache();
-    return await cache.play("swiftly.mp3");
+    return await cache.play("mp3/swiftly.mp3");
   }
 
 
@@ -115,26 +115,6 @@ class ChannelListWidget extends StatelessWidget {
       isOnline = channel.createdBy.online;
       userStatus = channel.createdBy.extraData["status"].toString();
     }
-    //final lastMessage = hasMessage ? channel.state.messages.last.user.extraData["fullName"] + ": " +channel.state.messages.last.text : '';
-    //final lastMessageAt = _formatDateTime(channel.lastMessageAt);
-    // final _auth = auth.FirebaseAuth.instance;
-    // List<String> userEmailLoggedIn = _auth.currentUser.email.split("@");
-    // String memberName = "";
-    // String nameChannel;
-
-    // if(channel.isGroup){
-    //   nameChannel = name;
-    // } else {
-    //   if(channel.createdBy.id != userEmailLoggedIn[0].toString()){
-    //     nameChannel = channel.createdBy.extraData["name"].toString();
-    //     //print("True");
-    //   } else {
-    //     //print("Email => " + channel.createdBy.id);
-    //     nameChannel = channel.state.members.last.user.extraData["name"].toString();
-    //   }
-    // }
-
-
 
 
     return buildChannel(

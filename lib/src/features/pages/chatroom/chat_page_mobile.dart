@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 
-import 'package:agora_rtc_engine/rtc_engine.dart';
+//import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -35,14 +35,38 @@ class ChatPageMobile extends StatefulWidget {
 
 class _ChatPageMobileState extends State<ChatPageMobile> {
   VideoPlayerController _controller;
-  ClientRole _role = ClientRole.Broadcaster;
+  // ClientRole _role = ClientRole.Broadcaster;
   Map<String, String> onlineIds = new HashMap<String, String>();
   fdtb.DatabaseReference userReference;
   final databaseReference = fdtb.FirebaseDatabase.instance.reference();
   StreamSubscription<fdtb.Event> _onUserAdded;
   StreamSubscription<fdtb.Event>  _UserUpdate;
   fdtb.Query _todoQuery;
+  String fullName = "", strFullName = "";
+  int positionLength = 0;
 
+  Widget iconOnlineStatus = Container();
+
+
+  @override
+  void initState() {
+    super.initState();
+    positionLength = widget.userName.split(" ")[0].length + 1;
+    strFullName = widget.userName.substring(positionLength, widget.userName.length);
+    fullName = strFullName;
+    print("Username => " + fullName);
+    _todoQuery = databaseReference.reference().child("users");
+    _onUserAdded = _todoQuery.onChildAdded.listen(onEntryUserAdded);
+    _UserUpdate = _todoQuery.onChildChanged.listen(onEntryUserChanged);
+    //PushNotificationsManager().init();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _onUserAdded.cancel();
+    _UserUpdate.cancel();
+  }
 
   Future<void> onJoin() async {
     // update input validation
@@ -54,15 +78,15 @@ class _ChatPageMobileState extends State<ChatPageMobile> {
 
     await _handleCameraAndMic(Permission.camera);
     await _handleCameraAndMic(Permission.microphone);
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AudioCall(
-          channelName: "messaging",
-          role: _role,
-        ),
-      ),
-    );
+    // await Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => AudioCall(
+    //       channelName: "messaging",
+    //       role: _role,
+    //     ),
+    //   ),
+    // );
 
   }
 
@@ -81,19 +105,24 @@ class _ChatPageMobileState extends State<ChatPageMobile> {
   }
 
   Widget presence(String fullName){
-    String getFullName = fullName.split(":")[1];
-    String strFullName = getFullName.substring(1, getFullName.length);
-    if(onlineIds.containsKey(strFullName)){
-      if(onlineIds[strFullName] == "Active"){
-        return Image.asset('assets/images/online_presence2.png', width: 15, height: 15);
-      }  else if(onlineIds[strFullName] == "Idle"){
+    if(onlineIds.containsKey(fullName)){
+      print("True");
+      if(onlineIds[fullName] == "Active"){
+          return Image.asset('assets/images/online_presence2.png', width: 15, height: 15);
+
+      }  else if(onlineIds[fullName] == "Idle"){
         return Image.asset('assets/images/idle_icon.png', width: 13, height: 16);
       } else{
-        return Image.asset('assets/images/offline_presence.png', width: 18, height: 18);
+          return Image.asset('assets/images/offline_presence.png', width: 18, height: 18);
       }
     } else {
-      return Image.asset('assets/images/offline_presence.png', width: 18, height: 18);
+      print("False");
+        return Image.asset('assets/images/offline_presence.png', width: 18, height: 18);
+
     }
+
+
+
   }
 
 
@@ -154,7 +183,7 @@ class _ChatPageMobileState extends State<ChatPageMobile> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          presence(widget.userName),
+          presence(fullName),
           SizedBox(width: 10),
           Expanded(
             child: Text(widget.userName ,
@@ -190,8 +219,12 @@ class _ChatPageMobileState extends State<ChatPageMobile> {
     final isCurrentUser = StreamChat.of(context).user.id == message.user.id;
     final textAlign = isCurrentUser ? TextAlign.right : TextAlign.left;
     final color = isCurrentUser ? Colors.blueGrey : Colors.blue;
-    final isRead = widget.channel.state.read.last.user.name != message.user.name;
+    bool isRead = widget.channel.state.read.last.user.name != message.user.name ? true : false;
+    bool isSent = message.status.index == 6 ? true : false ;
+    bool isSending = message.status.index == 0 ? true : false ;
 
+    //print("Last username => " + widget.channel.state.read.last.user.extraData["fullName"]);
+    //print("Message username => " + StreamChat.of(context).user.extraData["fullName"]);
     if(details.message.status.index == 0){
 
       // if(message.){
@@ -249,7 +282,9 @@ class _ChatPageMobileState extends State<ChatPageMobile> {
             BubbleType.sendBubble,
             Alignment.topRight,
             Colors.white,
-            true
+            true,
+            isSent,
+            isSending
         );
       }
 
@@ -277,7 +312,9 @@ class _ChatPageMobileState extends State<ChatPageMobile> {
             BubbleType.receiverBubble,
             Alignment.topLeft,
             Colors.black,
-            false
+            false,
+            isSent,
+            isSending
         );
       }
 
@@ -285,26 +322,13 @@ class _ChatPageMobileState extends State<ChatPageMobile> {
 
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _todoQuery = databaseReference.reference().child("users");
-    _onUserAdded = _todoQuery.onChildAdded.listen(onEntryUserAdded);
-    _UserUpdate = _todoQuery.onChildChanged.listen(onEntryUserChanged);
-    //PushNotificationsManager().init();
-  }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _onUserAdded.cancel();
-    _UserUpdate.cancel();
-  }
 
   onEntryUserAdded(fdtb.Event event) {
 
     if(event.snapshot.value != null){
       setState(() {
+        //print(event.snapshot.value["name"].toString() + " " + event.snapshot.value["uid"].toString());
         onlineIds.putIfAbsent(event.snapshot.value["name"].toString(), () => event.snapshot.value["status"].toString());
       });
 
@@ -329,7 +353,7 @@ class _ChatPageMobileState extends State<ChatPageMobile> {
 
   Future<AudioPlayer> playLocalAsset() async {
     AudioCache cache = new AudioCache();
-    return await cache.play("facebook_pop.mp3");
+    return await cache.play("mp3/facebook_pop.mp3");
   }
 
   Widget _buildMessageLayout(Message message,
@@ -341,8 +365,11 @@ class _ChatPageMobileState extends State<ChatPageMobile> {
       BubbleType bubbleType,
       Alignment align,
       Color textColors,
-      bool isCurrentUser
+      bool isCurrentUser,
+      bool isSent,
+      bool isSending,
       ){
+    //print(message.toJson());
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 20),
         child: ChatBubble(
@@ -378,17 +405,8 @@ class _ChatPageMobileState extends State<ChatPageMobile> {
                           SizedBox(
                             width: 4.0,
                           ),
-                          iconStatus(isRead, isCurrentUser),
-                          // align == Alignment.topRight && isRead ?
-                          // Icon(
-                          //   Icons.done_all,
-                          //   size: 18.0,
-                          //   color: Colors.blue,
-                          // ) : Icon(
-                          //   Icons.done_outlined,
-                          //   size: 18.0,
-                          //   color: Colors.grey,
-                          // ),
+                          iconStatus(isRead, isCurrentUser, isSent, isSending),
+
                         ],
                       ),
                     ),
@@ -401,23 +419,49 @@ class _ChatPageMobileState extends State<ChatPageMobile> {
     );
   }
 
-  Widget iconStatus(isRead, isCurrentUser){
-
+  Widget iconStatus(isRead, isCurrentUser, isSent, isSending){
+    // print("is read? " + isRead.toString() +
+    //     " and isCurrentUser? " + isCurrentUser.toString() +
+    //     " is sent? " + isSent.toString()
+    // );
     if(isCurrentUser){
 
-      if(isRead){
-        return Icon(
-          Icons.done_all,
-          size: 18.0,
-          color: HexColor("#DF00FE"),
-        );
-      } else {
+      if(isSending){
         return Icon(
           Icons.done_outlined,
           size: 18.0,
-          color: HexColor("#DF00FE"),
+          color: Colors.grey,
         );
+      } else {
+        if(isSent == true && isRead == false){
+          return Icon(
+            Icons.done_outlined,
+            size: 18.0,
+            color: HexColor("#DF00FE"),
+          );
+        } else if(isRead == true && isSent == true) {
+          return Icon(
+            Icons.done_all,
+            size: 18.0,
+            color: HexColor("#DF00FE"),
+          );
+        }
       }
+
+
+      // if(isRead){
+      //   return Icon(
+      //     Icons.done_all,
+      //     size: 18.0,
+      //     color: HexColor("#DF00FE"),
+      //   );
+      // } else {
+      //   return Icon(
+      //     Icons.done_outlined,
+      //     size: 18.0,
+      //     color: HexColor("#DF00FE"),
+      //   );
+      // }
     } else {
       return Container();
     }
